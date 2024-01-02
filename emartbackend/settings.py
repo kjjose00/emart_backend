@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import environ
+import dj_database_url
 
 env=environ.Env()
 environ.Env.read_env()
@@ -26,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.3:8081','*']
+ALLOWED_HOSTS = ['emart-backend-top2.onrender.com','*']
 
 
 # Application definition
@@ -90,17 +91,22 @@ WSGI_APPLICATION = 'emartbackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "electromart",
-        "USER":"postgres",
-        "PASSWORD":"root",
-        "HOST":"localhost",
-        "PORT":5432,
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "electromart",
+#         "USER":"postgres",
+#         "PASSWORD":"root",
+#         "HOST":"localhost",
+#         "PORT":5432,
         
-    }
+#     }
+# }
+
+DATABASES= {
+    'default':dj_database_url.parse(env("DATABASE_URL"))
 }
+
 
 
 # Password validation
